@@ -12,3 +12,17 @@ D:\workspace\SpartaDungeon\SpartaDungeon\obj\Debug\net6.0\refint\SpartaDungeon.d
 D:\workspace\SpartaDungeon\SpartaDungeon\obj\Debug\net6.0\SpartaDungeon.pdb
 D:\workspace\SpartaDungeon\SpartaDungeon\obj\Debug\net6.0\SpartaDungeon.genruntimeconfig.cache
 D:\workspace\SpartaDungeon\SpartaDungeon\obj\Debug\net6.0\ref\SpartaDungeon.dll
+D:\github\TeamHomework\SpartaDungeon\bin\Debug\net6.0\SpartaDungeon.exe
+D:\github\TeamHomework\SpartaDungeon\bin\Debug\net6.0\SpartaDungeon.deps.json
+D:\github\TeamHomework\SpartaDungeon\bin\Debug\net6.0\SpartaDungeon.runtimeconfig.json
+D:\github\TeamHomework\SpartaDungeon\bin\Debug\net6.0\SpartaDungeon.dll
+D:\github\TeamHomework\SpartaDungeon\bin\Debug\net6.0\SpartaDungeon.pdb
+D:\github\TeamHomework\SpartaDungeon\obj\Debug\net6.0\SpartaDungeon.GeneratedMSBuildEditorConfig.editorconfig
+D:\github\TeamHomework\SpartaDungeon\obj\Debug\net6.0\SpartaDungeon.AssemblyInfoInputs.cache
+D:\github\TeamHomework\SpartaDungeon\obj\Debug\net6.0\SpartaDungeon.AssemblyInfo.cs
+D:\github\TeamHomework\SpartaDungeon\obj\Debug\net6.0\SpartaDungeon.csproj.CoreCompileInputs.cache
+D:\github\TeamHomework\SpartaDungeon\obj\Debug\net6.0\SpartaDungeon.dll
+D:\github\TeamHomework\SpartaDungeon\obj\Debug\net6.0\refint\SpartaDungeon.dll
+D:\github\TeamHomework\SpartaDungeon\obj\Debug\net6.0\SpartaDungeon.pdb
+D:\github\TeamHomework\SpartaDungeon\obj\Debug\net6.0\SpartaDungeon.genruntimeconfig.cache
+D:\github\TeamHomework\SpartaDungeon\obj\Debug\net6.0\ref\SpartaDungeon.dll
