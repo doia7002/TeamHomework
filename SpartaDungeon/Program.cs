@@ -7,8 +7,9 @@ internal class Program
 {
     private static Character player;
     private static List<Item> inventory = new List<Item>();
-    private static List<Monster> monsters = new List<Monster>();
+    private static List<Monster> monster;
     private static List<Item> shopInventory;
+    private static int currentFloor = 1;
     static void Main(string[] args)
     {
         GameDataSetting();
@@ -20,9 +21,9 @@ internal class Program
     static void Dungeon()
     {
         Console.Clear();
-        Console.WriteLine("던전에 들어왔습니다.");
-        Console.WriteLine("1.계속하기" + "(현재진행:0층)");
-        Console.WriteLine("0.나가기");
+        Console.WriteLine($"던전 {currentFloor}층에 들어왔습니다.");
+        Console.WriteLine("1. 계속하기" + $"(현재 진행: {currentFloor}층)");
+        Console.WriteLine("0. 나가기");
 
         int input = CheckValidInput(0, 1);
         switch (input)
@@ -34,7 +35,6 @@ internal class Program
             case 0:
                 DisplayGameIntro();
                 break;
-
 
             default:
                 Console.WriteLine("잘못된 입력입니다.");
@@ -79,18 +79,20 @@ internal class Program
             new Item("가고일 가죽 갑옷", ItemType.Armor, 0, 3, 150, "옆에 소가죽이라고 젹혀있다"),
             new Item("영생의 저주 카타나", ItemType.Weapon, 10, 0, 500, "베이는 순간 생명체의 생기가 흡수된다."),
             new Item("시간여행자의 과거유산", ItemType.Armor, 0, 10, 800, "무엇에 쓰이는 물건인지 모르겠다."),
-            new Item("롱고미니아드", ItemType.Armor, 100, 10, 20000,"물푸레나무로 만들고 날폭이 넓다.")
+            new Item("롱고미니아드", ItemType.Armor, 100, 10, 20000,"물푸레나무로 만들고 날폭이 넓다."),
+            new Item("엑스칼리버", ItemType.Armor, 10000, 10, 1200,"이 칼의 가진자는 왕이 될 자격이 있는자.")
 
             // 다른 상점 아이템 추가
         };
+        monster = new List<Monster>
+        {
 
-        Monster monster1 = new Monster("슬라임", 1, 10, 3, 30, 30);
-        Monster monster2 = new Monster("고블린", 2, 13, 6, 50, 50);
-        Monster monster3 = new Monster("오크", 3, 20, 8, 80, 80);
 
-        monsters.Add(monster1);
-        monsters.Add(monster2);
-        monsters.Add(monster3);
+          new Monster("슬라임", 1, 10, 3, 30, 30 ,"일반"),
+          new Monster("고블린", 2, 13, 6, 50, 50, "일반"),
+          new Monster("오크", 3, 20, 8, 80, 80, "일반")
+        };
+
     }
 
     static void DisplayGameIntro()
@@ -248,11 +250,13 @@ internal class Program
         {
             DisplayShop();
         }
-
         else
         {
             Item selected = inventory[input - 1];
             SellItem(selected);
+
+            // 상점에 아이템 등록
+            shopInventory.Add(selected);
         }
     }
 
@@ -269,7 +273,7 @@ internal class Program
 
         Console.WriteLine("상점으로 돌아가려면 아무 키나 눌러주세요.");
         Console.ReadKey();
-        DisplayInventory();
+        SellItem();
     }
 
     static void BuyItem()
@@ -311,13 +315,16 @@ internal class Program
             Console.WriteLine($"현재 골드: {player.Gold} G");
             Console.WriteLine("내가 만든 무기와 방어구는 뭐든지 최고라고 젊은이 하하!!");
 
+            // 상점 목록에서 아이템 제거
+            shopInventory.Remove(item);
+
             Console.WriteLine("상점으로 돌아가려면 아무 키나 눌러주세요.");
             Console.ReadKey();
             DisplayShop();
         }
         else
         {
-            Console.WriteLine("골드가 부족하구!젊은이");
+            Console.WriteLine("골드가 부족하구! 젊은이");
 
             Console.WriteLine("상점으로 돌아가려면 아무 키나 눌러주세요.");
             Console.ReadKey();
@@ -396,55 +403,49 @@ internal class Program
 
     static void Incount()
     {
-
         Console.Clear();
+        Console.WriteLine($"던전 {currentFloor}층 몬스터들이 나타났습니다!");
 
-        Console.WriteLine("적과 조우했습니다!");
-
-        Console.WriteLine("1. 싸운다.");
-        Console.WriteLine("0. 도망간다.");
-
-        int input = CheckValidInput(0, 1);
-
-        if (input == 0)
-        {
-            Dungeon();
-        }
-        else if (input == 1)
-        {
-            int randomMonsterIndex = new Random().Next(0, monsters.Count);
-            Monster selectedMonster = monsters[randomMonsterIndex];
-            Battle(selectedMonster);
-        }
-
-
-    }
-
-    static void Battle()
-    {
-        Console.Clear();
-        Console.WriteLine("전투시작!");
-
-        Random random = new Random(Guid.NewGuid().GetHashCode());
-        int numberOfMonsters = random.Next(1, 5);
-
+        // 랜덤으로 1~4마리 몬스터 선택
+        int numberMonsters = new Random().Next(1, 5);
         List<Monster> selectedMonsters = new List<Monster>();
 
-        for (int i = 0; i < numberOfMonsters; i++)
+        Console.WriteLine($"등장한 몬스터 수: {numberMonsters}");
+        Console.WriteLine("------------------------------");
+
+        // 각 몬스터의 정보를 표시하고 선택
+        for (int i = 0; i < numberMonsters; i++)
         {
-            int randomMonsterIndex = random.Next(0, monsters.Count);
-            Monster selectedMonster = monsters[randomMonsterIndex];
+            int randomMonsterIndex = new Random().Next(0, monster.Count);
+            Monster selectedMonster = monster[randomMonsterIndex];
             selectedMonsters.Add(selectedMonster);
+
+            Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - 공격력: {selectedMonster.Atk}, 방어력: {selectedMonster.Def}, 체력: {selectedMonster.Hp}/{selectedMonster.MaxHp}, 계급: {selectedMonster.Class}");
         }
 
-        for (int i = 0; i < selectedMonsters.Count; i++)
+        Console.WriteLine("------------------------------");
+
+        // 선택지 동적 생성
+        for (int i = 0; i < numberMonsters; i++)
         {
-            Monster monster = selectedMonsters[i];
-            Console.WriteLine($"적 몬스터 {i + 1}: {monster.Name} 공격력:{monster.Atk} 방어력:{monster.Def} 체력:{monster.Hp}/{monster.MaxHp}");
+            Console.WriteLine($"{i + 1}. 전투 시작");
         }
 
-        Console.WriteLine();
+        Console.WriteLine("0. 도망간다.");
+
+        int input = CheckValidInput(0, numberMonsters);
+
+        switch (input)
+        {
+            case 0:
+                Dungeon();
+                break;
+            default:
+                Battle(selectedMonsters[input - 1], selectedMonsters);
+                break;
+        }
     }
+
 
 
     static int CheckValidInput(int min, int max)
@@ -463,12 +464,14 @@ internal class Program
             Console.WriteLine("잘못된 입력입니다.");
         }
     }
-    static void Battle(Monster monster)
+    static void Battle(Monster monster, List<Monster> allMonsters)
     {
         Console.Clear();
-        Console.WriteLine("전투시작!");
+        Console.WriteLine($"전투 시작! 상대 몬스터: {monster.Name} (Lv.{monster.Level})");
+        Console.WriteLine($"공격력: {monster.Atk}  방어력: {monster.Def}  체력: {monster.Hp}/{monster.MaxHp}");
         Console.WriteLine();
         // 전투 로직 구성
+
         while (player.Hp > 0 && monster.Hp > 0)
         {
             Console.WriteLine("플레이어의 차례");
@@ -507,6 +510,7 @@ internal class Program
 
             Console.WriteLine($"플레이어 체력{player.Hp}");
             Console.WriteLine($"{monster.Name} 체력 {monster.Hp}");
+
         }
         if (player.Hp <= 0)
         {
@@ -516,7 +520,39 @@ internal class Program
         else
         {
             Console.WriteLine($"승리했습니다! {monster.Name}을(를) 처치했습니다.");
-            // 전투 이후 로직 추가
+            monster.IsDead = true;
+            monster.Hp = 0;
+
+            // 현재 층의 몬스터를 체크
+            if (allMonsters.All(m => m.IsDead))
+            {
+                Console.WriteLine($"던전 {currentFloor}층을 클리어하였습니다!");
+
+                // 다음 층으로 이동
+                currentFloor++;
+                ResetMonsters();
+                Console.WriteLine("다음 층으로 이동합니다. 아무 키나 눌러주세요.");
+                Console.ReadKey();
+
+                // 이동한 층에서 몬스터 다시 생성
+                Incount();
+            }
+            else
+            {
+                // 전투 이후 로직 추가
+                Console.WriteLine("다른 적과의 전투를 시작하려면 아무 키나 눌러주세요.");
+                Console.ReadKey();
+                Incount();
+            }
+        }
+    }
+    static void ResetMonsters()
+    {
+        // 각 몬스터의 상태를 리셋
+        foreach (var m in monster)
+        {
+            m.Hp = m.MaxHp;
+            m.IsDead = false;
         }
     }
     static int Damage(int AttckerAttack)
@@ -583,8 +619,10 @@ public class Monster
     public int Def { get; set; }
     public int Hp { get; set; }
     public int MaxHp { get; set; }
+    public string Class { get; set; }
+    public bool IsDead { get; set; }
 
-    public Monster(string name, int level, int atk, int def, int hp, int maxhp)
+    public Monster(string name, int level, int atk, int def, int hp, int maxhp, string monsterClass)
     {
         Name = name;
         Level = level;
@@ -592,5 +630,7 @@ public class Monster
         Def = def;
         Hp = hp;
         MaxHp = maxhp;
+        Class = monsterClass;//적들의 등급표시
+        IsDead = false;//Hp가 0이되면 활성화
     }
 }
