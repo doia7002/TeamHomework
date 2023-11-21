@@ -90,7 +90,8 @@ internal class Program
 
           new Monster("슬라임", 1, 10, 3, 30, 30 ,"일반"),
           new Monster("고블린", 2, 13, 6, 50, 50, "일반"),
-          new Monster("오크", 3, 20, 8, 80, 80, "일반")
+          new Monster("오크", 3, 20, 8, 80, 80, "일반"),
+          new Monster("악어", 3, 20, 8, 40, 40, "일반")
         };
 
     }
