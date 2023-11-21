@@ -409,6 +409,7 @@ internal class Program
 
         // 랜덤으로 1~4마리 몬스터 선택
         int numberMonsters = new Random().Next(1, 5);
+
         List<Monster> selectedMonsters = new List<Monster>();
 
         Console.WriteLine($"등장한 몬스터 수: {numberMonsters}");
@@ -420,8 +421,9 @@ internal class Program
             int randomMonsterIndex = new Random().Next(0, monster.Count);
             Monster selectedMonster = monster[randomMonsterIndex];
             selectedMonsters.Add(selectedMonster);
-
-            Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - 공격력: {selectedMonster.Atk}, 방어력: {selectedMonster.Def}, 체력: {selectedMonster.Hp}/{selectedMonster.MaxHp}, 계급: {selectedMonster.Class}");
+            if(currentFloor>1)
+            Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - 공격력: {selectedMonster.Atk+(selectedMonster.Atk * currentFloor * 0.2)}, 방어력: {selectedMonster.Def+ (selectedMonster.Def * currentFloor * 0.2)}, 체력: {selectedMonster.Hp + (selectedMonster.Hp * currentFloor * 0.2)}/{selectedMonster.MaxHp + (selectedMonster.MaxHp * currentFloor * 0.2)}, 계급: {selectedMonster.Class}");
+            else Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - 공격력: {selectedMonster.Atk}, 방어력: {selectedMonster.Def}, 체력: {selectedMonster.Hp}/{selectedMonster.MaxHp}, 계급: {selectedMonster.Class}");    
         }
 
         Console.WriteLine("------------------------------");
@@ -485,7 +487,7 @@ internal class Program
             switch (playerChiose)
             {
                 case 1:
-                    int PalyerDamage = Damage(player.Atk);
+                    int PalyerDamage = Damage(player.Atk - (monster.Def / 2));
                     monster.Hp -= PalyerDamage;
                     Console.WriteLine($"플레이어가 {monster.Name}에게{PalyerDamage}의 피해를 주었습니다.");
                     break;
@@ -505,7 +507,7 @@ internal class Program
             }
 
             Console.WriteLine("상대의 차례");
-            int MonsterDamage = Damage(monster.Atk);
+            int MonsterDamage = Damage(monster.Atk - (player.Def/2));
             player.Hp -= MonsterDamage;
             Console.WriteLine($"{monster.Name}이(가) 플레이어에게 {MonsterDamage}를(을) 피해를 주었습니다");
 
@@ -562,6 +564,7 @@ internal class Program
         int damage = random.Next(AttckerAttack / 2, AttckerAttack + 1);
         return damage;
     }
+    
 }
 
 public class Character
