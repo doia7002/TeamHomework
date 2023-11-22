@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\82109\\Documents\\GitHub\\TeamHomework\\SpartaDungeon\\SpartaDungeon.csproj": {}
+    "D:\\github\\TeamHomework\\SpartaDungeon\\SpartaDungeon.csproj": {}
   },
   "projects": {
-    "C:\\Users\\82109\\Documents\\GitHub\\TeamHomework\\SpartaDungeon\\SpartaDungeon.csproj": {
+    "D:\\github\\TeamHomework\\SpartaDungeon\\SpartaDungeon.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\82109\\Documents\\GitHub\\TeamHomework\\SpartaDungeon\\SpartaDungeon.csproj",
+        "projectUniqueName": "D:\\github\\TeamHomework\\SpartaDungeon\\SpartaDungeon.csproj",
         "projectName": "SpartaDungeon",
-        "projectPath": "C:\\Users\\82109\\Documents\\GitHub\\TeamHomework\\SpartaDungeon\\SpartaDungeon.csproj",
-        "packagesPath": "C:\\Users\\82109\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\82109\\Documents\\GitHub\\TeamHomework\\SpartaDungeon\\obj\\",
+        "projectPath": "D:\\github\\TeamHomework\\SpartaDungeon\\SpartaDungeon.csproj",
+        "packagesPath": "C:\\Users\\sagongminsu\\.nuget\\packages\\",
+        "outputPath": "D:\\github\\TeamHomework\\SpartaDungeon\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\82109\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sagongminsu\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

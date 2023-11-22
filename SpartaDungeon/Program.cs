@@ -407,36 +407,41 @@ internal class Program
         Console.Clear();
         Console.WriteLine($"던전 {currentFloor}층 몬스터들이 나타났습니다!");
 
-        // 랜덤으로 1~4마리 몬스터 선택
-        int numberMonsters = new Random().Next(1, 5);
-
         List<Monster> selectedMonsters = new List<Monster>();
 
-        Console.WriteLine($"등장한 몬스터 수: {numberMonsters}");
+        Console.WriteLine($"등장한 몬스터 수: 4"); // 4마리로 고정
         Console.WriteLine("------------------------------");
 
-        // 각 몬스터의 정보를 표시하고 선택
-        for (int i = 0; i < numberMonsters; i++)
+        // 고정된 몬스터 정보를 표시
+        for (int i = 0; i < 4; i++)
         {
-            int randomMonsterIndex = new Random().Next(0, monster.Count);
-            Monster selectedMonster = monster[randomMonsterIndex];
+            Monster selectedMonster = monster[i];
             selectedMonsters.Add(selectedMonster);
-            if(currentFloor>1)
-            Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - 공격력: {selectedMonster.Atk+(selectedMonster.Atk * currentFloor * 0.2)}, 방어력: {selectedMonster.Def+ (selectedMonster.Def * currentFloor * 0.2)}, 체력: {selectedMonster.Hp + (selectedMonster.Hp * currentFloor * 0.2)}/{selectedMonster.MaxHp + (selectedMonster.MaxHp * currentFloor * 0.2)}, 계급: {selectedMonster.Class}");
-            else Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - 공격력: {selectedMonster.Atk}, 방어력: {selectedMonster.Def}, 체력: {selectedMonster.Hp}/{selectedMonster.MaxHp}, 계급: {selectedMonster.Class}");    
+            if (currentFloor > 1)
+                Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - " +
+                    $"공격력: {selectedMonster.Atk + (selectedMonster.Atk * currentFloor * 0.2)}, " +
+                    $"방어력: {selectedMonster.Def + (selectedMonster.Def * currentFloor * 0.2)}, " +
+                    $"체력: {selectedMonster.Hp + (selectedMonster.Hp * currentFloor * 0.2)}/{selectedMonster.MaxHp + (selectedMonster.MaxHp * currentFloor * 0.2)}, " +
+                    $"계급: {selectedMonster.Class}");
+            else
+                Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - " +
+                    $"공격력: {selectedMonster.Atk}, " +
+                    $"방어력: {selectedMonster.Def}, " +
+                    $"체력: {selectedMonster.Hp}/{selectedMonster.MaxHp}, " +
+                    $"계급: {selectedMonster.Class}");
         }
 
         Console.WriteLine("------------------------------");
 
         // 선택지 동적 생성
-        for (int i = 0; i < numberMonsters; i++)
+        for (int i = 0; i < 4; i++)
         {
             Console.WriteLine($"{i + 1}. 전투 시작");
         }
 
         Console.WriteLine("0. 도망간다.");
 
-        int input = CheckValidInput(0, numberMonsters);
+        int input = CheckValidInput(0, 4);
 
         switch (input)
         {
@@ -448,7 +453,6 @@ internal class Program
                 break;
         }
     }
-
 
 
     static int CheckValidInput(int min, int max)
