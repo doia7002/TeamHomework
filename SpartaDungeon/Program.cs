@@ -419,9 +419,9 @@ internal class Program
             selectedMonsters.Add(selectedMonster);
             if (currentFloor > 1)
                 Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - " +
-                    $"공격력: {selectedMonster.Atk + (selectedMonster.Atk * currentFloor * 0.2)}, " +
-                    $"방어력: {selectedMonster.Def + (selectedMonster.Def * currentFloor * 0.2)}, " +
-                    $"체력: {selectedMonster.Hp + (selectedMonster.Hp * currentFloor * 0.2)}/{selectedMonster.MaxHp + (selectedMonster.MaxHp * currentFloor * 0.2)}, " +
+                    $"공격력: {selectedMonster.Atk + (int)(selectedMonster.Atk * (currentFloor - 1) * 0.2)}, " +
+                    $"방어력: {selectedMonster.Def + (int)(selectedMonster.Def * (currentFloor - 1) * 0.2)}, " +
+                    $"체력: {selectedMonster.Hp + (int)(selectedMonster.Hp * (currentFloor - 1) * 0.2)}/{selectedMonster.MaxHp + (int)(selectedMonster.MaxHp * (currentFloor - 1) * 0.2)}, " +
                     $"계급: {selectedMonster.Class}");
             else
                 Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - " +
@@ -510,8 +510,15 @@ internal class Program
 
             }
 
+            Random random = new Random();
             Console.WriteLine("상대의 차례");
-            int MonsterDamage = Damage(monster.Atk - (player.Def/2));
+            int MonsterDamage = Damage(monster.Atk - (player.Def / 2));
+            if (random.Next(1, 101) <= 10)
+            {
+                Console.WriteLine("플레이어가 공격을 회피했습니다!");
+                MonsterDamage = 0;
+            }
+
             player.Hp -= MonsterDamage;
             Console.WriteLine($"{monster.Name}이(가) 플레이어에게 {MonsterDamage}를(을) 피해를 주었습니다");
 
@@ -566,9 +573,14 @@ internal class Program
     {
         Random random = new Random();
         int damage = random.Next(AttckerAttack / 2, AttckerAttack + 1);
+        if (random.Next(1, 101) <= 10)
+        {
+            Console.WriteLine("치명타!");
+            damage = (int)(damage * 1.5);
+        }
         return damage;
     }
-    
+
 }
 
 public class Character
