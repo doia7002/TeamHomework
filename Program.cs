@@ -121,15 +121,13 @@
 
         private static void PrintStartLogo()
         {
-            Console.WriteLine("   ▄████████    ▄███████▄    ▄████████    ▄████████     ███        ▄████████ ████████▄  ███    █▄  ███▄▄▄▄      ▄██████▄     ▄████████  ▄██████▄  ███▄▄▄▄   ");
-            Console.WriteLine("  ███    ███   ███    ███   ███    ███   ███    ███ ▀█████████▄   ███    ███ ███   ▀███ ███    ███ ███▀▀▀██▄   ███    ███   ███    ███ ███    ███ ███▀▀▀██▄ ");
-            Console.WriteLine("  ███    █▀    ███    ███   ███    ███   ███    ███    ▀███▀▀██   ███    ███ ███    ███ ███    ███ ███   ███   ███    █▀    ███    █▀  ███    ███ ███   ███ ");
-            Console.WriteLine("  ███          ███    ███   ███    ███  ▄███▄▄▄▄██▀     ███   ▀   ███    ███ ███    ███ ███    ███ ███   ███  ▄███         ▄███▄▄▄     ███    ███ ███   ███ ");
-            Console.WriteLine(" ▀███████████ ▀█████████▀  ▀███████████ ▀▀███▀▀▀▀▀       ███     ▀███████████ ███    ███ ███    ███ ███   ███ ▀▀███ ████▄  ▀▀███▀▀▀     ███    ███ ███   ███ ");
-            Console.WriteLine("           ███   ███          ███    ███ ▀███████████     ███       ███    ███ ███    ███ ███    ███ ███   ███   ███    ███   ███    █▄  ███    ███ ███   ███ ");
-            Console.WriteLine("      ▄█    ███   ███          ███    ███   ███    ███     ███       ███    ███ ███   ▄███ ███    ███ ███   ███   ███    ███   ███    ███ ███    ███ ███   ███ ");
-            Console.WriteLine("     ▄████████▀   ▄████▀        ███    █▀    ███    ███    ▄████▀     ███    █▀  ████████▀  ████████▀   ▀█   █▀    ████████▀    ██████████  ▀██████▀   ▀█   █▀  ");
-            Console.WriteLine("                               ███    ███                                                                                                         ");
+            Console.WriteLine(" #####   ######      ##    ######   ########    ##    ##   ##           ######    ##  ##  ##   ##   #####   #######   #####   ##   ##");
+            Console.WriteLine("##   ##   ##  ##    ####    ##  ##  #  ##  #   ####   ###  ##            ##  ##   ##  ##  ###  ##  ##   ##   ##  ##  ##   ##  ###  ##");
+            Console.WriteLine("##        ##  ##   ##  ##   ##  ##     ##     ##  ##  #### ##            ##  ##   ##  ##  #### ##  ##        ##      ##   ##  #### ##");
+            Console.WriteLine(" #####    ##  ##   ######   #####      ##     ######  ## ####            ##  ##   ##  ##  ## ####  ##        ####    ##   ##  ## ####");
+            Console.WriteLine("     ##   #####    ##  ##   ####       ##     ##  ##  ##  ###            ##  ##   ##  ##  ##  ###  ##  ###   ##      ##   ##  ##  ###");
+            Console.WriteLine("##   ##   ##       ##  ##   ## ##      ##     ##  ##  ##   ##            ##  ##   ##  ##  ##   ##  ##   ##   ##  ##  ##   ##  ##   ##");
+            Console.WriteLine(" #####   ###       ##  ##  ###  ##    ####    ##  ##  ##   ##           ######     ####   ##   ##   #####   #######   #####   ##   ##");
             Console.ReadKey();
             NameOption();
 
@@ -483,47 +481,76 @@
         {
             Console.Clear();
             Console.WriteLine($"던전 {currentFloor}층 몬스터들이 나타났습니다!");
-
-            // 랜덤으로 1~4마리 몬스터 선택
-            int numberMonsters = new Random().Next(1, 5);
-
             List<Monster> selectedMonsters = new List<Monster>();
-
-            Console.WriteLine($"등장한 몬스터 수: {numberMonsters}");
+            Console.WriteLine($"등장한 몬스터 수: 4"); // 4마리로 고정
             Console.WriteLine("------------------------------");
-
-            // 각 몬스터의 정보를 표시하고 선택
-            for (int i = 0; i < numberMonsters; i++)
+            // 고정된 몬스터 정보를 표시
+            for (int i = 0; i < 4; i++)
             {
-                int randomMonsterIndex = new Random().Next(0, monster.Count);
-                Monster selectedMonster = monster[randomMonsterIndex];
+                Monster selectedMonster = monster[i];
                 selectedMonsters.Add(selectedMonster);
                 if (currentFloor > 1)
-                    Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - 공격력: {selectedMonster.Atk + (selectedMonster.Atk * currentFloor * 0.2)}, 방어력: {selectedMonster.Def + (selectedMonster.Def * currentFloor * 0.2)}, 체력: {selectedMonster.Hp + (selectedMonster.Hp * currentFloor * 0.2)}/{selectedMonster.MaxHp + (selectedMonster.MaxHp * currentFloor * 0.2)}, 계급: {selectedMonster.Class}");
-                else Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - 공격력: {selectedMonster.Atk}, 방어력: {selectedMonster.Def}, 체력: {selectedMonster.Hp}/{selectedMonster.MaxHp}, 계급: {selectedMonster.Class}");
+                    Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - " +
+                        $"공격력: {selectedMonster.Atk + (selectedMonster.Atk * currentFloor * 0.2)}, " +
+                        $"방어력: {selectedMonster.Def + (selectedMonster.Def * currentFloor * 0.2)}, " +
+                        $"체력: {selectedMonster.Hp + (selectedMonster.Hp * currentFloor * 0.2)}/{selectedMonster.MaxHp + (selectedMonster.MaxHp * currentFloor * 0.2)}, " +
+                        $"계급: {selectedMonster.Class}");
+                else
+                    Console.WriteLine($"[{i + 1}] {selectedMonster.Name} (Lv.{selectedMonster.Level}) - " +
+                        $"공격력: {selectedMonster.Atk}, " +
+                        $"방어력: {selectedMonster.Def}, " +
+                        $"체력: {selectedMonster.Hp}/{selectedMonster.MaxHp}, " +
+                        $"계급: {selectedMonster.Class}");
             }
-
             Console.WriteLine("------------------------------");
-
             // 선택지 동적 생성
-            for (int i = 0; i < numberMonsters; i++)
-            {
-                Console.WriteLine($"{i + 1}. 전투 시작");
-            }
-
+            
             Console.WriteLine("0. 도망간다.");
-
-            int input = CheckValidInput(0, numberMonsters);
-
+            Console.WriteLine("1. [슬라임]");
+            Console.WriteLine("2. [고블린]");
+            Console.WriteLine("3. [오크]");
+            Console.WriteLine("4. [악어]");
+            
+            int input = CheckValidInput(0, 4);
             switch (input)
+
             {
                 case 0:
                     Dungeon();
                     break;
+                case 1:
+                    Battle(selectedMonsters[0], selectedMonsters);
+                    if (selectedMonsters.Hp <= 0)
+                    {
+                        Console.WriteLine("이미 사망한 몬스터입니다 다른 몬스터를 선택해주세요");
+                    }
+                    break; 
+                case 2:
+                    Battle(selectedMonsters[1], selectedMonsters);
+                    if (selectedMonsters.Hp <= 0)
+                    {
+                        Console.WriteLine("이미 사망한 몬스터입니다 다른 몬스터를 선택해주세요");
+                    }
+                    break;
+                case 3:
+                    Battle(selectedMonsters[2], selectedMonsters);
+                    if (selectedMonsters.Hp <= 0)
+                    {
+                        Console.WriteLine("이미 사망한 몬스터입니다 다른 몬스터를 선택해주세요");
+                    }
+                    break;
+                case 4:
+                    Battle(selectedMonsters[3], selectedMonsters);
+                    if (selectedMonsters.Hp <= 0)
+                    {
+                        Console.WriteLine("이미 사망한 몬스터입니다 다른 몬스터를 선택해주세요");
+                    }
+                    break;  
                 default:
-                    Battle(selectedMonsters[input - 1], selectedMonsters);
+                    Console.WriteLine("잘못된 입력입니다. 다시 시도해주세요");
                     break;
             }
+            
         }
 
 
@@ -554,6 +581,8 @@
 
             while (player.Hp > 0 && monster.Hp > 0)
             {
+                Console.WriteLine($"{player.Name}의 남은체력/ {player.Hp}");
+                Console.WriteLine($"{monster.Name}의 남은체력/ {monster.Hp}");
                 Console.WriteLine("플레이어의 차례");
                 Console.WriteLine("1.공격");
                 Console.WriteLine("2.스킬");
@@ -583,7 +612,7 @@
                             monster.Stun = true;
                             Console.WriteLine($"플레이어가 {monster.Name}에게 강격을 시전했습니다. {Skill1}만큼의 피해를 주었습니다.");
                         }                        
-                        else if (input * 1 == 2)
+                        else if (player.Sp>0 && input * 1 == 2)
                         {
                             int Skill2 = Damage(player.Atk);
                             monster.Hp -= Skill2;
@@ -592,7 +621,7 @@
                             Console.WriteLine($"플레이어가 {monster.Name}에게 비틀어찌르기를 시전했습니다. {Skill2}만큼의 피해를 주었습니다");
                                                         
                         }
-                        else if (input * 1 == 3)
+                        else if (player.Sp>0 && input * 1 == 3)
                         {
                             int Skill3 = 2 * player.Def;
                             player.Def += Skill3;
@@ -609,25 +638,32 @@
                         Console.WriteLine("공사중...특정행동");
                         Console.Clear();
                         break;
-                    default:                       
+                    default:                        
                         Console.WriteLine("");
                         Console.WriteLine(".");
                         Console.ReadKey();                        
                         break;
 
                 }
-
+                Random random = new Random();//스턴과 회피
                 if (monster.Stun == false)
                 {
                     Console.WriteLine("상대의 차례");
                     int MonsterDamage = Damage(monster.Atk - (player.Def / 2));
+                    if (random.Next(1, 101) <= 10)
+                    {
+                        Console.WriteLine("플레이어가 공격을 회피했습니다!");
+                        MonsterDamage = 0;
+                    }
                     player.Hp -= MonsterDamage;
                     Console.WriteLine($"{monster.Name}이(가) 플레이어에게 {MonsterDamage}를(을) 피해를 주었습니다");
+                    
                 }
                 Console.WriteLine($"플레이어 체력{player.Hp}");
                 Console.WriteLine($"{monster.Name} 체력 {monster.Hp}");
+                
 
-     
+
                 if (monster.Bleeding == true && monster.BleedingCnt<3)//출혈데미지 출력
                 {
                     monster.Hp -= 5;
@@ -646,12 +682,17 @@
                     Console.WriteLine($"{monster.Name}이 기절했습니다.");
                     monster.Stun = false;
                 }
-               
+                Console.ReadKey();
+                Console.Clear();
+
             }            
             if (player.Hp <= 0)
             {
                 Console.WriteLine("패배했습니다. 게임 오버!");
-                // 게임 오버 로직 추가
+                Console.ReadKey();
+
+                Console.Clear();
+                PrintStartLogo();
             }
             else
             {
@@ -660,7 +701,7 @@
                 
                 monster.IsDead = true;
                 monster.Hp = 0;
-                monster.Reward += player.Gold;
+                player.Gold += monster.Reward;
                 player.Sp = 3;
                 Console.WriteLine($"스킬포인트를 {player.Sp}만큼 회복했습니다.");
 
@@ -699,12 +740,18 @@
                 m.BleedingCnt = 0;
                 m.StunCnt = 0;
                 
+
             }
         }
         static int Damage(int AttckerAttack)
         {
             Random random = new Random();
             int damage = random.Next(AttckerAttack / 2, AttckerAttack + 1);
+            if (random.Next(1, 101) <= 10)
+            {
+                Console.WriteLine("치명타!");
+                damage = (int)(damage * 1.5);
+            }
             return damage;
         }
 
